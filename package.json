@@ -1,0 +1,14 @@
+{
+  "name": "unoonono",
+  "version": "1.0.0",
+  "description": "Another fork of the [https://github.com/Ratismal/UNO](UNO) Bot modified for my needs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eris": "^0.12.0"
+  }
+}
