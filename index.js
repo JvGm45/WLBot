@@ -15,7 +15,7 @@ client.on('ready', async () => {
     console.log('O jerbs está em')
     console.log(client.guilds.size);
     client.editStatus('online', {
-        name: prefix.toLowerCase() + " help"
+        name: "Entre para a WonderfulLand: https://discord.gg/QjgqgF2"
     });
 
     if (!(config.hasOwnProperty('owner_id')) || config.owner_id != "197308318119755776") {
@@ -76,20 +76,18 @@ const timeoutTimer = setInterval(async () => {
 const commands = {
     async help(msg, words) {
        
-      let out = `:sparkles: *__WL Cards__** :sparkles:\n
-**${prefix.toUpperCase()} HELP** - Mostra esta mensagem
-**${prefix.toUpperCase()} JOIN** - Entre ou crie uma partida neste canal
-**${prefix.toUpperCase()} QUIT** - Saia do jogo atual
-**${prefix.toUpperCase()} START** - Hora de iniciar o jogo! Apenas pode ser iniciado pelo jogador que entrou primeiro.
-**${prefix.toUpperCase()} TABLE** - Mostra todos na mesa
-**${prefix.toUpperCase()} PLAY <cor> <valor>** - Joga uma carta!
-**${prefix.toUpperCase()} PICKUP** - Pega cartas 
-**${prefix.toUpperCase()} ESQUECIDINHO** - Avisa um jogador que ele tem apenas uma carta
-**${prefix.toUpperCase()}WL!** - Informe todos que você tem apenas uma carta!
-
-Você pode executar até dois comandos em uma única mensagem, separando-os com \`&&\`!`;
-
-        return out;
+        client.createMessage(msg.channel.id, {
+            embed: {
+              title:"<:WILD:700816527896608858> Wl Cards <:WILD:700816527896608858>",
+              description:"**-Join** - Entre ou crie uma partida neste canal,\n**-Quit** - Saia do jogo atual,\n**-Start** - Hora de iniciar o jogo! Apenas pode ser iniciado pelo jogador que entrou primeiro,\n**-Table** - Mostra a quantidade de cartas dos jogadores,\n**-Play <cor> <valor>** - Joga uma carta,\n**-Pickup** - Pega cartas.",
+                thumbnail:{
+                    url: "https://i.imgur.com/UB5eAi6.png"
+                 }
+            }
+          
+          })
+    
+       
     },
     async join(msg, words) {
         let game = games[msg.channel.id];
@@ -265,7 +263,7 @@ Você pode executar até dois comandos em uma única mensagem, separando-os com 
             game.started = true;
             return {
                 embed: {
-                    description: `**O jogo começou com ${game.queue.length} jogadores! A carta atual é ****${game.flipped}**. \n\nE agora é a vez de ${game.player.member.user.username}`,
+                    description: `**O jogo começou com ${game.queue.length} jogadores! A carta atual é ${game.flipped}**. \n\nE agora é a vez de ${game.player.member.user.username}`,
                     thumbnail: { url: game.flipped.URL },
                     color: game.flipped.colorCode
                 }
@@ -303,7 +301,7 @@ Você pode executar até dois comandos em uma única mensagem, separando-os com 
             return `\`\`\`js\n${err.stack}\n\`\`\``;
         }
     },
-    async ping(msg, words) {
+    async fvck(msg, words) {
         return ':ping_pong: Pong!';
     },
     async table(msg, words) {
@@ -317,7 +315,7 @@ Você pode executar até dois comandos em uma única mensagem, separando-os com 
             return `Aqui estão os jogadores deste jogo\n${game.queue.map(p => `**${p.member.user.username}** | ${p.hand.length} card(s)`).join('\n')}`;
         }
     },
-    async ['WL!'](msg, words) {
+    async ['wonderful'](msg, words) {
         let game = games[msg.channel.id];
         if (game && game.started && game.players[msg.author.id] && game.players[msg.author.id].hand.length === 1) {
             let p = game.players[msg.author.id];
@@ -475,7 +473,7 @@ class Game {
         this.deck = a;
         for (const card of this.deck.filter(c => c.wild))
             card.color = undefined;
-        this.send('*Thfwwp!* O seu baralho foi embaralhado!.');
+        this.send('*Thfwwp!*  O seu baralho foi embaralhado!.');
     }
 }
 
@@ -590,7 +588,7 @@ class Card {
     }
 
     get URL() {
-        return `https://raw.githubusercontent.com/Diniboy1123/UNO/master/cards/${this.color || ''}${this.id}.png`
+        return `https://raw.githubusercontent.com/JvGm45/WLBot/master/cards/${this.color || ''}${this.id}.png`
     }
 
     get value() {
